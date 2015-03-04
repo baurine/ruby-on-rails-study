@@ -46,5 +46,10 @@ class UserTest < ActiveSupport::TestCase
     duplicate_user.email = @user.email.upcase
     assert_not duplicate_user.valid?
   end
+  
+  test "password should not be too short" do
+    @user.password=@user.password_confirmation="a"*5
+    assert_not @user.valid?
+  end  
 
 end
