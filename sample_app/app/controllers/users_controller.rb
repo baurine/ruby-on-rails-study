@@ -12,7 +12,8 @@ class UsersController < ApplicationController
     @user = User.new(new_params)
     if @user.save
       #puts 'save ok' # in fact should render another page
-      puts @user.id
+      #puts @user.id
+      flash[:success] = "Welcome to the Sample App!"
       redirect_to @user # 是因为当前类是 UsersController，所以 redirect_to 知道是重定向到 /users/id ??
       # 哦，原来这是 redirect_to user_url(@user) 的简写
     else
