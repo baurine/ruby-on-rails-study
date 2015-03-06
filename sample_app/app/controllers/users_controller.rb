@@ -11,9 +11,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(new_params)
     if @user.save
-      puts 'save ok' # in fact should render another page
+      #puts 'save ok' # in fact should render another page
+      puts @user.id
+      redirect_to @user # 是因为当前类是 UsersController，所以 redirect_to 知道是重定向到 /users/id ??
+      # 哦，原来这是 redirect_to user_url(@user) 的简写
     else
-      puts 'save failed'
+      #puts 'save failed'
       render 'new'
     end
   end
