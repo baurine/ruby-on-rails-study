@@ -27,12 +27,9 @@ class User < ActiveRecord::Base
   
   # 验证 token 和 digest j
   def authenticated?(token)
-    puts "***************#{remember_digest}$$$$$$$$$$$$$$$$"
-    if remember_digest.nil?
-      false
-    else
-      BCrypt::Password.new(remember_digest).is_password?(token)
-    end
+    #puts "***************#{remember_digest}$$$$$$$$$$$$$$$$"
+    return false if remember_digest.nil?
+    BCrypt::Password.new(remember_digest).is_password?(token)
   end
   
   # 忘记用户
