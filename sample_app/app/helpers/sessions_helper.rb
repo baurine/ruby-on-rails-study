@@ -43,4 +43,15 @@ module SessionsHelper
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
   end
+  
+  # 重定向到之前保存的 url，或者 default url
+  def redirect_back_or(default)
+    redirect_to(session[:forward_url] || default)
+    session.delete(:forward_url)
+  end
+  
+  # 保存以后需要重定向的 url
+  def store_location
+    session[:forward_url] = request.url if request.get?
+  end
 end
