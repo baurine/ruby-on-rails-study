@@ -19,6 +19,10 @@ module SessionsHelper
     !current_user.nil?
   end
   
+  def current_user?(user)
+    user == current_user
+  end
+  
   # 退出时忘记用户
   def log_out
     forget(current_user)

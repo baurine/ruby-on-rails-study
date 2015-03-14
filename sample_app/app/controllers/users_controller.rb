@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only:[:edit, :update]
+  before_action :correct_user, only:[:edit, :update]
   
   def new
     @user = User.new
@@ -26,11 +27,13 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
+    # @user 在 correct_user 中定义过了
+    # @user = User.find(params[:id])
   end
   
   def update
-    @user = User.find(params[:id])
+    # @user 在 correct_user 中定义过了
+    # @user = User.find(params[:id])
     if @user.update_attributes(new_params)
       flash[:success] = "Update profile success!"
       redirect_to @user
@@ -51,5 +54,11 @@ class UsersController < ApplicationController
         flash[:danger] = "Please log in first!"
         redirect_to login_url
       end
+    end
+    
+    # 事前过滤器，确保是当前用户
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
     end
 end
