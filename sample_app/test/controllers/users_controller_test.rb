@@ -34,5 +34,10 @@ class UsersControllerTest < ActionController::TestCase
     patch :update, id: @user, user: {name:@user.name, email:@user.email}
     assert_redirected_to root_url
   end
+  
+  test "should redirect index when not logged in" do
+    get :index
+    assert_redirected_to login_url
+  end
 
 end
